@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/harry-verity-site  # TODO: Replace with your repo
+  branch: main
+  site_domain: YOUR_GITHUB_USERNAME.github.io  # TODO: Replace
+
+publish_mode: editorial_workflow
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", required: true }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list", required: false }

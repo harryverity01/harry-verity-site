@@ -1,0 +1,80 @@
+name: Build Blog Posts
+on:
+  push:
+    paths:
+      - '_posts/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install marked
+        run: npm install marked
+
+      - name: Build blog posts
+        run: |
+          node -e "
+          const fs = require('fs');
+          const { marked } = require('marked');
+          const posts = [];
+
+          if (!fs.existsSync('blog')) fs.mkdirSync('blog');
+
+          fs.readdirSync('_posts').filter(f => f.endsWith('.md')).forEach(file => {
+            const content = fs.readFileSync('_posts/' + file, 'utf8');
+            const frontMatter = content.match(/^---\n([\s\S]*?)\n---/);
+            if (!frontMatter) return;
+
+            const meta = {};
+            frontMatter[1].split('\n').forEach(line => {
+              const [key, ...val] = line.split(':');
+              if (key && val.length) meta[key.trim()] = val.join(':').trim().replace(/^\"|\"$/g, '');
+            });
+
+            const body = content.replace(/^---\n[\s\S]*?\n---\n/, '');
+            const html = marked(body);
+            const slug = file.replace('.md', '');
+
+            posts.push({
+              title: meta.title || slug,
+              date: meta.date || slug.substring(0, 10),
+              slug: slug,
+              excerpt: meta.excerpt || ''
+            });
+
+            const template = \`<!DOCTYPE html>
+          <html lang=\"en\"><head>
+          <meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+          <title>\${meta.title} - Harry Verity</title>
+          <link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap\" rel=\"stylesheet\">
+          <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;font-size:17px;line-height:1.8;color:#1A1A1A;background:#FAFAF8}.c{max-width:680px;margin:0 auto;padding:120px 24px 80px}.back{display:inline-block;font-size:14px;color:#888;margin-bottom:40px;text-decoration:none}.back:hover{color:#1A1A1A}.meta{font-size:13px;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,40px);font-weight:500;line-height:1.2;margin-bottom:32px}h2{font-family:'Playfair Display',serif;font-size:24px;margin:40px 0 16px}p{color:#4A4A4A;margin-bottom:20px}a{color:#E41E2B}hr{border:none;border-top:1px solid rgba(0,0,0,.08);margin:40px 0}ul,ol{margin:0 0 20px 24px;color:#4A4A4A}</style>
+          </head><body><div class=\"c\">
+          <a href=\"/\" class=\"back\">Back to home</a>
+          <p class=\"meta\">\${new Date(meta.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</p>
+          <h1>\${meta.title}</h1>
+          \${html}
+          </div></body></html>\`;
+
+            fs.writeFileSync('blog/' + slug + '.html', template);
+          });
+
+          posts.sort((a, b) => b.date.localeCompare(a.date));
+          fs.writeFileSync('blog-posts.json', JSON.stringify(posts, null, 2));
+          "
+
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add blog/ blog-posts.json
+          git diff --staged --quiet || git commit -m "Auto-build blog posts"
+          git push

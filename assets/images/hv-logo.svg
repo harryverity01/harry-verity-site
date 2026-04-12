@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200">
+  <!-- Three grey vertical bars (the H) -->
+  <rect x="28" y="12" width="28" height="176" fill="#CACACA"/>
+  <rect x="66" y="12" width="28" height="176" fill="#CACACA"/>
+  <rect x="104" y="12" width="28" height="176" fill="#CACACA"/>
+  <!-- Red V -->
+  <path d="M138,12 L158,12 L172,148 L186,12 L206,12 L178,188 L166,188 Z" fill="#E5202D"/>
+  <!-- Two horizontal black lines across the full width -->
+  <line x1="14" y1="82" x2="220" y2="82" stroke="#1A1A1A" stroke-width="3"/>
+  <line x1="14" y1="118" x2="220" y2="118" stroke="#1A1A1A" stroke-width="3"/>
+</svg>

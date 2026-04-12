@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harry Verity — AI Consultant</title>
+  <meta name="description" content="Harry Verity helps companies make sense of AI. Consulting, coaching, and clarity for businesses overwhelmed by artificial intelligence.">
+  <meta property="og:title" content="Harry Verity — AI Consultant">
+  <meta property="og:description" content="Helping companies cut through the AI noise. Consultant, Guardian journalist, Gcore video producer.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #E41E2B;
+      --red-dark: #C4181F;
+      --black: #1A1A1A;
+      --grey-dark: #4A4A4A;
+      --grey-mid: #888;
+      --grey-light: #D0D0D0;
+      --grey-bg: #F5F4F1;
+      --white: #FAFAF8;
+      --pure-white: #FFFFFF;
+      --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --max-width: 1120px;
+      --section-pad: clamp(56px, 7vw, 100px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 40px);
+    }
+
+    /* ========== DIVIDER MOTIF ========== */
+    .hv-divider {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin: 0 auto;
+    }
+    .hv-divider span {
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: var(--black);
+    }
+
+    /* ========== TYPOGRAPHY ========== */
+    h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.2; }
+    h2 { font-size: clamp(28px, 4vw, 42px); margin-bottom: 20px; }
+    h3 { font-size: clamp(20px, 2.5vw, 26px); margin-bottom: 12px; }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-heading h2 { margin-bottom: 16px; }
+    .section-heading .hv-divider { margin-top: 16px; }
+
+    /* ========== BUTTONS ========== */
+    .btn {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-primary {
+      background: var(--red);
+      color: var(--pure-white);
+    }
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--black);
+      border: 1.5px solid var(--black);
+    }
+    .btn-outline:hover {
+      background: var(--black);
+      color: var(--pure-white);
+    }
+    .btn-outline-light {
+      background: transparent;
+      color: var(--pure-white);
+      border: 1.5px solid rgba(255,255,255,0.3);
+    }
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    /* ========== NAV ========== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .nav-logo img { height: 56px; width: auto; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--grey-dark);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links .btn { text-transform: none; padding: 10px 24px; font-size: 14px; }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      transition: all 0.3s;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding-top: calc(80px + var(--section-pad));
+      padding-bottom: var(--section-pad);
+      background: var(--white);
+    }
+    .hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-inner h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .hero-inner .hero-sub {
+      font-size: clamp(17px, 2vw, 20px);
+      color: var(--grey-dark);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-inner .btn { margin-bottom: 48px; }
+    .hero-video {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    }
+    .hero-video video {
+      width: 100%;
+      display: block;
+    }
+
+    /* ========== CREDIBILITY BAR ========== */
+    .credibility-bar {
+      padding: clamp(40px, 5vw, 64px) 0;
+      background: var(--black);
+      color: var(--pure-white);
+    }
+    .credibility-inner {
+      text-align: center;
+    }
+    .credibility-label {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pure-white);
+      margin-bottom: 28px;
+    }
+    .pub-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(32px, 5vw, 60px);
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .pub-logos img {
+      height: clamp(40px, 5.5vw, 64px);
+      width: auto;
+      opacity: 0.7;
+      filter: brightness(0) invert(1);
+      transition: opacity 0.3s;
+    }
+    .pub-logos img:hover {
+      opacity: 1;
+    }
+    .credibility-stats {
+      display: flex;
+      justify-content: center;
+      gap: clamp(32px, 5vw, 64px);
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 500;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+    }
+    .stat-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 8px;
+    }
+    .stat-logo {
+      height: 40px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+    .stat-logo[alt="OpenAI"] {
+      height: 52px;
+    }
+
+    /* ========== PROBLEM ========== */
+    .problem {
+      padding: var(--section-pad) 0;
+      background: var(--white);
+    }
+    .problem-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .problem-inner h2 {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .problem-inner p {
+      font-size: 17px;
+      color: var(--grey-dark);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .problem-inner p:last-child { margin-bottom: 0; }
+
+    /* ========== WHAT I DO ========== */
+    .what-i-do {
+      padding: var(--section-pad) 0;
+      background: var(--grey-bg);
+    }
+    .what-i-do-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .what-i-do-inner h2 {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .what-i-do-inner p {
+      font-size: 17px;
+      color: var(--grey-dark);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .what-i-do-inner p:last-child { margin-bottom: 0; }
+
+    /* ========== PROCESS ========== */
+    .process {
+      padding: var(--section-pad) 0;
+      background: var(--white);
+    }
+    .process-steps {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .process-step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .process-step:last-child { margin-bottom: 0; }
+    .step-number {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--red);
+      line-height: 1;
+      padding-top: 4px;
+    }
+    .step-content h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .step-content p {
+      font-size: 16px;
+      color: var(--grey-dark);
+      line-height: 1.8;
+    }
+
+    /* ========== RECENT WORK ========== */
+    .recent-work {
+      padding: var(--section-pad) 0;
+      background: var(--grey-bg);
+    }
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-bottom: 32px;
+    }
+    .video-card { border-radius: 4px; overflow: hidden; }
+    .video-card .video-link { display: block; }
+    .video-card .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: #000;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .video-card .video-wrap img {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .video-card .video-link:hover .video-wrap img {
+      transform: translate(-50%, -50%) scale(1.05);
+      opacity: 0.85;
+    }
+    .video-card .play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.85;
+      transition: opacity 0.3s;
+      z-index: 2;
+    }
+    .video-card .video-link:hover .play-btn { opacity: 1; }
+    .video-card p {
+      font-size: 14px;
+      color: var(--grey-mid);
+      margin-top: 12px;
+      font-style: italic;
+    }
+    .work-intro {
+      text-align: center;
+      color: var(--grey-dark);
+      font-size: 17px;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* ========== TESTIMONIALS ========== */
+    .testimonials {
+      padding: var(--section-pad) 0;
+      background: var(--white);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .testimonial-card {
+      padding: clamp(28px, 3vw, 40px);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 4px;
+      background: var(--pure-white);
+    }
+    .testimonial-card blockquote {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--grey-dark);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testimonial-card .attribution {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+    }
+    .testimonial-card .attribution span {
+      display: block;
+      font-weight: 400;
+      font-size: 13px;
+      color: var(--grey-mid);
+      margin-top: 2px;
+    }
+
+    /* ========== ABOUT ========== */
+    .about {
+      padding: var(--section-pad) 0;
+      background: var(--grey-bg);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-image { border-radius: 4px; overflow: hidden; }
+    .about-image img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .about-text p {
+      font-size: 17px;
+      color: var(--grey-dark);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ========== MEETUP ========== */
+    .meetup {
+      padding: var(--section-pad) 0;
+      background: var(--white);
+    }
+    .meetup .intro-line {
+      text-align: center;
+      color: var(--grey-dark);
+      font-size: 17px;
+      margin-bottom: 50px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .meetup-feed {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .feed-card {
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+      background: var(--grey-bg);
+      transition: transform 0.2s;
+    }
+    .feed-card:hover { transform: translateY(-3px); }
+    .feed-card .thumb {
+      position: relative;
+      padding-bottom: 56.25%;
+      background: #eee;
+      overflow: hidden;
+    }
+    .feed-card .thumb img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .feed-card .feed-info { padding: 16px 20px; }
+    .feed-card .feed-info h4 {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .feed-card .feed-info time { font-size: 12px; color: var(--grey-mid); }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 80px 0 40px;
+      background: var(--black);
+      color: var(--pure-white);
+    }
+    .footer-cta {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+    .footer-cta h2 {
+      color: var(--pure-white);
+      margin-bottom: 20px;
+    }
+    .footer-cta p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .contact-form {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .contact-form .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 3px;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--pure-white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .contact-form input::placeholder, .contact-form textarea::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: rgba(255,255,255,0.3);
+    }
+    .contact-form textarea {
+      min-height: 100px;
+      resize: vertical;
+      margin-bottom: 14px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+      padding-top: 60px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand .footer-logo { height: 48px; margin-bottom: 20px; }
+    .footer-brand p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+      max-width: 280px;
+    }
+    .footer-contact h4, .footer-links h4 {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: rgba(255,255,255,0.9);
+    }
+    .footer-contact a, .footer-links a {
+      display: block;
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-contact a:hover, .footer-links a:hover { color: var(--pure-white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .videos-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .meetup-feed { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .process-step { grid-template-columns: 48px 1fr; gap: 16px; }
+      .credibility-stats { gap: 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0; right: 0;
+        background: var(--white);
+        padding: 24px;
+        gap: 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+      }
+      .nav-toggle { display: flex; }
+    }
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .videos-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .meetup-feed { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav id="nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="assets/images/hv-logo.png" alt="HV">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#how">How I work</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#meetup">Meetup</a></li>
+        <li><a href="#contact" class="btn btn-primary">Let's talk</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <h1>I Help Companies Make Sense of AI</h1>
+        <p class="hero-sub">There's a new AI tool every week. Your competitors are talking about it. Your board is asking about it. And your team still isn't sure what any of it actually means for them. I bring clarity, not complexity.</p>
+        <a href="#contact" class="btn btn-primary">Let's talk</a>
+        <div class="hero-video">
+          <video controls preload="metadata" poster="assets/images/video-poster.jpg">
+            <source src="assets/video/intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CREDIBILITY BAR ========== -->
+  <section class="credibility-bar">
+    <div class="container">
+      <div class="credibility-inner">
+        <p class="credibility-label">Writing &amp; producing for</p>
+        <div class="pub-logos">
+          <img src="assets/images/logos/the-guardian.png" alt="The Guardian">
+          <img src="assets/images/logos/the-decoder.png" alt="The Decoder">
+          <img src="assets/images/logos/gcore.png" alt="Gcore">
+          <img src="assets/images/logos/daily-express.png" alt="Daily Express">
+          <img src="assets/images/logos/inews.svg" alt="iNews">
+          <img src="assets/images/logos/the-independent.svg" alt="The Independent">
+        </div>
+        <div class="credibility-stats">
+          <div class="stat">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">AI meetup members</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">Weekly</div>
+            <div class="stat-label">AI video for Gcore</div>
+          </div>
+          <div class="stat">
+            <div class="stat-logos">
+              <img src="assets/images/logos/openai-full.png" alt="OpenAI" class="stat-logo">
+              <img src="assets/images/logos/google.svg" alt="Google" class="stat-logo">
+            </div>
+            <div class="stat-label">Meetup speakers &amp; participants</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THE PROBLEM ========== -->
+  <section class="problem">
+    <div class="container">
+      <div class="problem-inner">
+        <h2>Everyone's talking about AI. Most companies are still guessing.</h2>
+        <p>You've probably had the conversation a dozen times. "We need to do something with AI." But no one can agree on what that actually looks like.</p>
+        <p>Maybe you've tried a few tools. Maybe someone on the team uses ChatGPT for emails. But there's no strategy, no structure, and no confidence that you're doing the right things.</p>
+        <p>Meanwhile, the pressure keeps building. New tools launch every week. Competitors are posting about their "AI transformation" on LinkedIn. And the people selling AI solutions speak in jargon that doesn't help.</p>
+        <p>The problem isn't that AI is too complicated. It's that no one's sat down with you and made it clear.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHAT I DO ========== -->
+  <section class="what-i-do" id="consulting">
+    <div class="container">
+      <div class="what-i-do-inner">
+        <h2>I don't sell software. I sell clarity.</h2>
+        <p>I'm an AI consultant. That means I work directly with companies — usually founders, leadership teams, or ops leads — to figure out where AI fits into what you already do.</p>
+        <p>I look at your actual workflows. The emails, the reports, the data entry, the processes your team does on autopilot. Then I identify where AI can take real weight off — and where it can't.</p>
+        <p>From there, I build you a clear plan and coach you through it. Not a 50-page strategy deck that sits in a drawer. A practical, understandable roadmap that your team can actually follow.</p>
+        <p>By the end, you're not dependent on me. You understand what you're doing and why.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="process" id="how">
+    <div class="container">
+      <div class="section-heading">
+        <h2>How it works</h2>
+        <div class="hv-divider"><span></span><span></span></div>
+      </div>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>Conversation</h3>
+            <p>We start with a call. You tell me what's going on — what you've tried, where you're stuck, what's keeping you up at night. No prep needed. I just need to understand your business.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>Audit</h3>
+            <p>I look at how your team actually works. The tools, the processes, the things that eat up time. I'm looking for the gaps where AI can make a real, measurable difference.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>Plan</h3>
+            <p>I put together a clear, prioritised roadmap — what to do first, what tools to use, and how to roll it out without disrupting what's already working. No jargon. No fluff.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <h3>Coaching</h3>
+            <p>I don't just hand you a plan and disappear. I stay with you through implementation, coaching your team until they're confident using the tools themselves. The goal is independence, not dependence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RECENT WORK ========== -->
+  <section class="recent-work" id="work">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Recent work</h2>
+        <div class="hv-divider"><span></span><span></span></div>
+      </div>
+      <p class="work-intro">I produce weekly AI content for Gcore and run a large weekly AI meetup. Here's some of what I've been working on recently.</p>
+      <div class="videos-grid">
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=RZzAOIOVY4I" target="_blank" rel="noopener" class="video-link">
+            <div class="video-wrap">
+              <img src="https://img.youtube.com/vi/RZzAOIOVY4I/hqdefault.jpg" alt="Opus 4.6 walkthrough" loading="lazy">
+              <div class="play-btn"><svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24L27 14v20" fill="white"/></svg></div>
+            </div>
+          </a>
+          <p>Opus 4.6 walkthrough — Gcore</p>
+        </div>
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=zdhvUlCD0x0" target="_blank" rel="noopener" class="video-link">
+            <div class="video-wrap">
+              <img src="https://img.youtube.com/vi/zdhvUlCD0x0/hqdefault.jpg" alt="Open Claw vulnerability breakdown" loading="lazy">
+              <div class="play-btn"><svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24L27 14v20" fill="white"/></svg></div>
+            </div>
+          </a>
+          <p>Open Claw vulnerability breakdown</p>
+        </div>
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=ACuyKBN3r4s" target="_blank" rel="noopener" class="video-link">
+            <div class="video-wrap">
+              <img src="https://img.youtube.com/vi/ACuyKBN3r4s/hqdefault.jpg" alt="Perplexity Computer review" loading="lazy">
+              <div class="play-btn"><svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24L27 14v20" fill="white"/></svg></div>
+            </div>
+          </a>
+          <p>Perplexity Computer — hands-on review</p>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <a href="https://youtube.com/@harryverity" target="_blank" rel="noopener" class="btn btn-outline">View more on YouTube &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS ========== -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-heading">
+        <h2>What people say</h2>
+        <div class="hv-divider"><span></span><span></span></div>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <blockquote>"Working with Harry Verity was an inspiring experience. He has an exceptional ability to lean in and quickly grasp complex AI concepts, from the foundational mathematics to more advanced technologies. Harry knows how to frame the picture around any challenge, approaching problem-solving with a deep curiosity and strategic focus."</blockquote>
+          <div class="attribution">
+            Kanish Gosain
+            <span>Member of the Technical Staff, OpenAI</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <blockquote>"Harry's advice on AI, marketing and strategy has been one of the key factors in helping us drive Stack Optimize, our lead generation business to over $500,000 in annual revenue. His wisdom in the latest AI tools and strategies has enabled us to take on more clients while maintaining our high level of service and results."</blockquote>
+          <div class="attribution">
+            Penn Frank &amp; Felix Frank
+            <span>Founders of Stack Optimize</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <blockquote>"Harry's deep understanding of AI, combined with his strategic thinking, has provided me with invaluable guidance that has directly contributed to our success."</blockquote>
+          <div class="attribution">
+            James Banks
+            <span>CEO, Rankmax AI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-image">
+        <img src="assets/images/group-photo.jpg" alt="Harry Verity at the AI meetup">
+      </div>
+      <div class="about-text">
+        <h2>About</h2>
+        <div class="hv-divider" style="align-items:flex-start; margin-bottom:28px"><span></span><span></span></div>
+        <p>I studied Early Modern History at York, wrote a crime novel, and ended up covering artificial intelligence for The Guardian. It's an unusual path — but it turns out a background in making sense of complicated things is exactly what this field needs.</p>
+        <p>Now I split my time between consulting with companies on AI, producing weekly video for Gcore, and writing for publications that want AI explained without the hype.</p>
+        <p>I also run a weekly AI meetup — around 500 members — where engineers from OpenAI, Google, and some of the bigger VC firms have come through to speak. It keeps me plugged into what's actually happening, not just what's trending.</p>
+        <p>The thread through everything I do is the same: taking something that feels overwhelming and making it clear enough to act on.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MEETUP ========== -->
+  <section class="meetup" id="meetup">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Weekly AI Meetup</h2>
+        <div class="hv-divider"><span></span><span></span></div>
+      </div>
+      <p class="intro-line">Every week I host a large AI meetup regularly attended by over 100 people — a room full of professionals, founders, and engineers, figuring out what's real and what's noise. Here are some recent sessions.</p>
+      <div class="meetup-feed">
+        <a href="https://www.youtube.com/watch?v=wl9bIant4mY" target="_blank" rel="noopener" class="feed-card">
+          <div class="thumb"><img src="https://img.youtube.com/vi/wl9bIant4mY/mqdefault.jpg" alt="Anthropic Kills Third Party Harnesses" loading="lazy"></div>
+          <div class="feed-info"><h4>Anthropic Kills Third Party Harnesses | Live AI Meetup</h4><time>8 Apr 2026</time></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=Y6HCn6mr4sE" target="_blank" rel="noopener" class="feed-card">
+          <div class="thumb"><img src="https://img.youtube.com/vi/Y6HCn6mr4sE/mqdefault.jpg" alt="Anthropic's Biggest Feature" loading="lazy"></div>
+          <div class="feed-info"><h4>Why I Think Anthropic's Biggest Feature Is a Mistake | LIVE AI Meetup</h4><time>2 Apr 2026</time></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=PKOSYo5NJhU" target="_blank" rel="noopener" class="feed-card">
+          <div class="thumb"><img src="https://img.youtube.com/vi/PKOSYo5NJhU/mqdefault.jpg" alt="Silicon Valley Special" loading="lazy"></div>
+          <div class="feed-info"><h4>LIVE AI Meet-up Silicon Valley Special Ft. Top Investors and ML Engineers</h4><time>17 Jul 2025</time></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=jhzho3aS1rc" target="_blank" rel="noopener" class="feed-card">
+          <div class="thumb"><img src="https://img.youtube.com/vi/jhzho3aS1rc/mqdefault.jpg" alt="AI Consulting Secrets" loading="lazy"></div>
+          <div class="feed-info"><h4>AI Consulting Secrets: Advanced Deep Research and Video Generation</h4><time>16 Jul 2025</time></div>
+        </a>
+      </div>
+      <div style="text-align:center; margin-top:32px">
+        <a href="https://youtube.com/@harryverity" target="_blank" rel="noopener" class="btn btn-outline">View all meetups on YouTube &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER / CONTACT ========== -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-cta">
+        <h2>Let's have a conversation.</h2>
+        <p>If AI has been on your to-do list for a while — or if you've started and it hasn't stuck — I can help. No pitch, no pressure. Just a conversation about where you are and what might actually work.</p>
+      </div>
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="_replyto" placeholder="Email" required>
+        </div>
+        <textarea name="message" placeholder="Tell me a bit about your business and what you're looking for..." required></textarea>
+        <div style="text-align:center">
+          <button type="submit" class="btn btn-primary" style="width:100%">Get in touch</button>
+        </div>
+      </form>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/images/hv-logo.png" alt="HV" class="footer-logo" style="filter: brightness(0) invert(1);">
+          <p>Helping companies cut through the noise and put AI to work.</p>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <a href="mailto:harry.i.cunningham@gmail.com">harry.i.cunningham@gmail.com</a>
+        </div>
+        <div class="footer-links">
+          <h4>Elsewhere</h4>
+          <a href="https://youtube.com/@harryverity" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.linkedin.com/in/harry-verity" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://twitter.com/harryverity" target="_blank" rel="noopener">X / Twitter</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Harry Verity</span>
+        <span>London</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+    });
+    // Close mobile nav on link click
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>
